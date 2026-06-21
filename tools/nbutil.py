@@ -21,6 +21,13 @@ $$ ... $$ (display). Jupyter renders it automatically.
 import json
 import os
 
+# GitHub coordinates for the "Open in Colab" badge prepended to every notebook.
+# (Keep in sync with tools/add_colab_links.py if you fork/rename the repo.)
+REPO = "cto-school/mathematics-for-machine-learning"
+BRANCH = "main"
+_BADGE = "https://colab.research.google.com/assets/colab-badge.svg"
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 _counter = [0]
 
 
@@ -54,8 +61,24 @@ def code(text):
     }
 
 
+def _colab_cell(path):
+    """A first markdown cell with an 'Open in Colab' badge for this notebook."""
+    rel = os.path.relpath(os.path.abspath(path), _ROOT).replace(os.sep, "/")
+    url = "https://colab.research.google.com/github/%s/blob/%s/%s" % (
+        REPO, BRANCH, rel)
+    html = ('<a href="%s" target="_parent">'
+            '<img src="%s" alt="Open In Colab"/></a>') % (url, _BADGE)
+    return {"cell_type": "markdown", "id": _next_id(),
+            "metadata": {}, "source": [html]}
+
+
 def save(path, cells):
-    """Assemble cells into a valid notebook and write it to `path`."""
+    """Assemble cells into a valid notebook and write it to `path`.
+
+    A Colab badge cell is prepended automatically so every notebook can be
+    opened in Google Colab straight from GitHub.
+    """
+    cells = [_colab_cell(path)] + list(cells)
     notebook = {
         "cells": cells,
         "metadata": {
