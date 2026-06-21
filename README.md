@@ -198,3 +198,11 @@ relevant one at the end of each chapter's README.
 [Matplotlib](https://matplotlib.org/stable/), [scikit-learn](https://scikit-learn.org/stable/).
 
 Happy learning! Start with **`00-python-jupyter-crash-course/`**.
+
+---
+
+## License
+
+Released under the [MIT License](LICENSE) — © 2026 cto-school. You are free to
+use, adapt, and share this material (including in your own teaching) with
+attribution.
