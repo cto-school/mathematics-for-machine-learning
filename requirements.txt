@@ -1,0 +1,7 @@
+# Everything you need for this course. Install with:
+#     pip install -r requirements.txt
+numpy>=1.24
+matplotlib>=3.7
+jupyter>=1.0
+# (Optional) used only in a few "compare with a library" cells:
+scikit-learn>=1.2
